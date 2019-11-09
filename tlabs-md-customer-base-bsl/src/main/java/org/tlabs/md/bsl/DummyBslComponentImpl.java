@@ -13,7 +13,7 @@ public class DummyBslComponentImpl implements DummyBslComponent {
 
     public DummyBslComponentImpl(DummyDalComponent dummyDalComponent) {
 
-        logger.info("Constructor invoked for: {}", this.getClass().getName());
+        logger.debug("Constructor invoked for: {}", this.getClass().getName());
 
         this.dummyDalComponent = dummyDalComponent;
     }

@@ -9,7 +9,7 @@ public class DummyDalComponentImpl implements DummyDalComponent {
             = LoggerFactory.getLogger(DummyDalComponentImpl.class);
 
     public DummyDalComponentImpl() {
-        logger.info("Constructor invoked for: {}", this.getClass().getName());
+        logger.debug("Constructor invoked for: {}", this.getClass().getName());
     }
 
     @Override
