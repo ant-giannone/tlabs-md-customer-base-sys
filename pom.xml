@@ -19,11 +19,13 @@
 
         <fully.qualified.main.class>org.tlabs.md.ptl.App</fully.qualified.main.class>
 
-        <org.springframework.version>5.2.1.RELEASE</org.springframework.version>
         <org.mockito.version>1.10.19</org.mockito.version>
         <junit.version>4.12</junit.version>
         <ch.qos.logback.version>1.2.3</ch.qos.logback.version>
         <org.slf4j.version>1.7.28</org.slf4j.version>
+        <org.springframework.version>5.2.1.RELEASE</org.springframework.version>
+        <javax.servlet.version>4.0.1</javax.servlet.version>
+        <org.apache.cxf.version>3.3.3</org.apache.cxf.version>
 
         <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
     </properties>
@@ -67,10 +69,25 @@
                 <version>${org.slf4j.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+            <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
+                <artifactId>spring-web</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
                 <version>${org.springframework.version}</version>
             </dependency>
 
@@ -80,6 +97,20 @@
                 <artifactId>spring-test</artifactId>
                 <version>${org.springframework.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${org.apache.cxf.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${org.apache.cxf.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -115,10 +146,10 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-test</artifactId>
         </dependency>
     </dependencies>
 
@@ -129,6 +160,8 @@
     </modules>
 
     <build>
+        <finalName>${parent.artifactId}-${parent.version}</finalName>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -145,9 +178,6 @@
                                 <finalName>${parent.artifactId}-${parent.version}</finalName>
 
                                 <transformers>
-                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                        <mainClass>${fully.qualified.main.class}</mainClass>
-                                    </transformer>
                                     <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                         <resource>META-INF/spring.handlers</resource>
                                     </transformer>
@@ -166,6 +196,19 @@
                                     </filter>
                                 </filters>
                             </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.3</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>war</goal>
+                            </goals>
                         </execution>
                     </executions>
                 </plugin>

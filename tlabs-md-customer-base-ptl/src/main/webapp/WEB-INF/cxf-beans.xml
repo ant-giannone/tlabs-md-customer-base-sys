@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://cxf.apache.org/jaxws
+       http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <import resource="classpath*:META-INF/cxf/cxf.xml" />
+    <import resource="classpath*:META-INF/cxf/cxf-servlet.xml" />
+    <import resource="classpath*:META-INF/cxf/cxf-extension-*.xml" />
+
+    <import resource="classpath*:ptl-context.xml"/>
+
+    <bean id="dummyManagerWebService" class="org.tlabs.md.ptl.ws.soap.DummyWebServiceImpl">
+        <constructor-arg index="0" ref="dummyPtlComponent" />
+    </bean>
+
+    <jaxws:endpoint id="dummyWebService"
+                    implementor="#dummyManagerWebService"
+                    address="/dummyWebService" >
+
+        <jaxws:properties>
+            <entry key="mtom-enabled" value="true" />
+            <entry key="attachment-directory" value="/tmp/"/>
+            <entry key="attachment-memory-threshold" value="4000000"/>
+        </jaxws:properties>
+    </jaxws:endpoint>
+</beans>

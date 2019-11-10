@@ -4,6 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="spring-context.xml" />
+    <import resource="spring-mvc.xml" />
+
     <import resource="classpath*:/ptl-context.xml" />
 
+    <import resource="cxf-beans.xml" />
 </beans>

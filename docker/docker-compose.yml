@@ -1,0 +1,16 @@
+version: '3'
+services:
+  tlabs-md-cbs:
+    container_name: tlabs-md-cbs
+    image: tomcat:jdk8-openjdk
+    userns_mode: "host"
+    ports:
+      - "8888:8080"
+    volumes:
+      - /opt/tlabs-md-platform/cbs/tomcat/conf:/usr/local/tomcat/conf/:rw
+      - /opt/tlabs-md-platform/cbs/tomcat/webapps/manager/META-INF/:/usr/local/tomcat/webapps/manager/META-INF/:rw
+
+networks:
+  default:
+    external:
+      name: tlabs-md-platform-network
