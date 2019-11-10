@@ -6,7 +6,7 @@
 
     <import resource="classpath*:/dal-context.xml" />
 
-    <bean id="dummyBslComponent" class="org.tlabs.md.bsl.DummyBslComponentImpl">
+    <bean id="dummyBslComponent" class="org.tlabs.md.bsl.component.DummyBslComponentImpl">
 
         <constructor-arg ref="dummyDalComponent"/>
     </bean>

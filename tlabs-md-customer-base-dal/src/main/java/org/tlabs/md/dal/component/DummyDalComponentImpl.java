@@ -1,4 +1,4 @@
-package org.tlabs.md.dal;
+package org.tlabs.md.dal.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

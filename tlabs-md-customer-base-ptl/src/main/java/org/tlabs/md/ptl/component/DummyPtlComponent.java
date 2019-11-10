@@ -1,6 +1,6 @@
-package org.tlabs.md.ptl;
+package org.tlabs.md.ptl.component;
 
-import org.tlabs.md.bsl.DummyBslComponent;
+import org.tlabs.md.bsl.component.DummyBslComponent;
 
 public interface DummyPtlComponent {
 

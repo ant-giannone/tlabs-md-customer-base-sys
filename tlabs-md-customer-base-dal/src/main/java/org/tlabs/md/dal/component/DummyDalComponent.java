@@ -1,4 +1,4 @@
-package org.tlabs.md.dal;
+package org.tlabs.md.dal.component;
 
 public interface DummyDalComponent {
 

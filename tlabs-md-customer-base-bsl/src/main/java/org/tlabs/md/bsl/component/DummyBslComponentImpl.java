@@ -1,8 +1,8 @@
-package org.tlabs.md.bsl;
+package org.tlabs.md.bsl.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tlabs.md.dal.DummyDalComponent;
+import org.tlabs.md.dal.component.DummyDalComponent;
 
 public class DummyBslComponentImpl implements DummyBslComponent {
 

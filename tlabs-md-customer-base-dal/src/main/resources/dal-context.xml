@@ -4,6 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="dummyDalComponent" class="org.tlabs.md.dal.DummyDalComponentImpl" />
+    <bean id="dummyDalComponent" class="org.tlabs.md.dal.component.DummyDalComponentImpl" />
 
 </beans>

@@ -6,7 +6,7 @@
 
     <import resource="classpath*:/bsl-context.xml" />
 
-    <bean id="dummyPtlComponent" class="org.tlabs.md.ptl.DummyPtlComponentImpl">
+    <bean id="dummyPtlComponent" class="org.tlabs.md.ptl.component.DummyPtlComponentImpl">
 
         <constructor-arg ref="dummyBslComponent"/>
     </bean>
