@@ -7,8 +7,8 @@ services:
     ports:
       - "8888:8080"
     volumes:
-      - /opt/tlabs-md-platform/cbs/tomcat/conf:/usr/local/tomcat/conf/:rw
-      - /opt/tlabs-md-platform/cbs/tomcat/webapps/manager/META-INF/:/usr/local/tomcat/webapps/manager/META-INF/:rw
+      - ./tlabs-md-platform/cbs/tomcat/conf:/usr/local/tomcat/conf/:rw
+      - ./tlabs-md-platform/cbs/tomcat/webapps/manager/META-INF/:/usr/local/tomcat/webapps/manager/META-INF/:rw
 
 networks:
   default:
