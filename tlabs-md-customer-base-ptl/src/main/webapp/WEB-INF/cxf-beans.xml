@@ -13,18 +13,12 @@
 
     <import resource="classpath*:ptl-context.xml"/>
 
-    <bean id="dummyManagerWebService" class="org.tlabs.md.ptl.ws.soap.DummyWebServiceImpl">
-        <constructor-arg index="0" ref="dummyPtlComponent" />
+
+    <bean id="customerBaseManagerWebService" class="org.tlabs.md.ptl.ws.soap.CustomerBaseWsImpl">
     </bean>
 
-    <jaxws:endpoint id="dummyWebService"
-                    implementor="#dummyManagerWebService"
-                    address="/dummyWebService" >
-
-        <jaxws:properties>
-            <entry key="mtom-enabled" value="true" />
-            <entry key="attachment-directory" value="/tmp/"/>
-            <entry key="attachment-memory-threshold" value="4000000"/>
-        </jaxws:properties>
+    <jaxws:endpoint id="customerBaseWsEndPoint"
+                    implementor="#customerBaseManagerWebService"
+                    address="/CustomerBaseManagerWs" >
     </jaxws:endpoint>
 </beans>
