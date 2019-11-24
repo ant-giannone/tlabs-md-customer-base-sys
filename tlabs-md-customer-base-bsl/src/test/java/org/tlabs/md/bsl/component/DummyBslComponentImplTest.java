@@ -3,6 +3,8 @@ package org.tlabs.md.bsl.component;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tlabs.md.dal.component.DummyDalComponent;
@@ -12,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DummyBslComponentImplTest {
 
     private ConfigurableApplicationContext applicationContext;
@@ -50,9 +53,8 @@ public class DummyBslComponentImplTest {
     public void getDummyDalComponent() {
 
         when(applicationContext.getBean("dummyBslComponent")).thenReturn(dummyBslComponent);
-        assertNotNull(dummyBslComponent);
 
-        when(dummyBslComponent.getDummyDalComponent()).thenReturn(dummyDalComponent);
-        assertNotNull(dummyDalComponent);
+        assertNotNull(dummyBslComponent);
+        assertNotNull(dummyBslComponent.getDummyDalComponent());
     }
 }

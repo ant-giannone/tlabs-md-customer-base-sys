@@ -3,6 +3,8 @@ package org.tlabs.md.ptl.component;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tlabs.md.bsl.component.DummyBslComponent;
@@ -14,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DummyPtlComponentImplTest {
 
     private ConfigurableApplicationContext applicationContext;
@@ -56,8 +59,6 @@ public class DummyPtlComponentImplTest {
 
         when(applicationContext.getBean("dummyPtlComponent")).thenReturn(dummyPtlComponent);
         assertNotNull(dummyPtlComponent);
-
-        when(dummyPtlComponent.getDummyBslComponent()).thenReturn(dummyBslComponent);
-        assertNotNull(dummyBslComponent);
+        assertNotNull(dummyPtlComponent.getDummyBslComponent());
     }
 }

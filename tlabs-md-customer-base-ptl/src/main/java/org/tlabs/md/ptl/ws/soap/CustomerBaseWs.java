@@ -1,5 +1,6 @@
 package org.tlabs.md.ptl.ws.soap;
 
+import org.apache.cxf.annotations.SchemaValidation;
 import org.tlabs.md.ptl.ws.dto.NewUserRegistrationRequest;
 import org.tlabs.md.ptl.ws.dto.NewUserRegistrationResponse;
 
@@ -10,6 +11,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
 @WebService
+@SchemaValidation(type = SchemaValidation.SchemaValidationType.BOTH)
 @SOAPBinding(style= SOAPBinding.Style.RPC)
 public interface CustomerBaseWs {
 

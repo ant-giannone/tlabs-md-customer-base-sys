@@ -54,25 +54,6 @@
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-transports-http</artifactId>
     </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-java</artifactId>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-spring -->
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-spring</artifactId>
-    </dependency>
   </dependencies>
 
   <build>
