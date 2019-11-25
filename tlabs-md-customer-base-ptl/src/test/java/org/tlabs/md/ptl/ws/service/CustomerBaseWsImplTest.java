@@ -1,4 +1,4 @@
-package org.tlabs.md.ptl.ws.soap;
+package org.tlabs.md.ptl.ws.service;
 
 import org.junit.After;
 import org.junit.Before;
@@ -7,11 +7,10 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.tlabs.md.dal.component.DummyDalComponentImpl;
 import org.tlabs.md.ptl.ws.dto.NewUserRegistrationRequest;
 import org.tlabs.md.ptl.ws.dto.NewUserRegistrationResponse;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

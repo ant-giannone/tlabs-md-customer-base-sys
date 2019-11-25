@@ -6,8 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.net.URL;
 
-@XmlRootElement(name = "userRegistrationResponse",
-        namespace = "md-poc.tlabs.org")
+@XmlRootElement(name = "userRegistrationResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NewUserRegistrationResponse {
 
@@ -17,8 +16,11 @@ public class NewUserRegistrationResponse {
     @XmlElement(name="systemMessage")
     private String messageInfo;
 
-    @XmlElement(name="accountActivationLink")
+    @XmlElement(name="accountActivationLink", required = true)
     private URL activationLink;
+
+    @XmlElement(name="accountActivationCode", required = true)
+    private String activationCode;
 
     public NewUserRegistrationResponse() {
     }
@@ -55,6 +57,14 @@ public class NewUserRegistrationResponse {
 
     public void setActivationLink(URL activationLink) {
         this.activationLink = activationLink;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
     }
 
     @Override

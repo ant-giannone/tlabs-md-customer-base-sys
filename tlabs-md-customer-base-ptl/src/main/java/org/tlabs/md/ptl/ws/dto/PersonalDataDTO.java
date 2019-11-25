@@ -9,8 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
-@XmlRootElement(name = "personalData",
-        namespace = "md-poc.tlabs.org")
+@XmlRootElement(name = "personalData")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PersonalDataDTO {
 

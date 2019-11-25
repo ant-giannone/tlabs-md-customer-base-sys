@@ -14,8 +14,8 @@
     <import resource="classpath*:ptl-context.xml"/>
 
 
-    <bean id="customerBaseManagerWebService" class="org.tlabs.md.ptl.ws.soap.CustomerBaseWsImpl">
-    </bean>
+    <bean id="customerBaseManagerWebService"
+          class="org.tlabs.md.ptl.ws.service.CustomerBaseWsImpl" />
 
     <jaxws:endpoint id="customerBaseWsEndPoint"
                     implementor="#customerBaseManagerWebService"

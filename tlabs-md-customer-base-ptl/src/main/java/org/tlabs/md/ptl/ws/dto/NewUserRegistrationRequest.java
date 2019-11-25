@@ -5,10 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(
-        name = "userRegistrationRequest",
-        namespace = "md-poc.tlabs.org"
-)
+@XmlRootElement(name = "userRegistrationRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NewUserRegistrationRequest {
 

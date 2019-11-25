@@ -5,10 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(
-        name = "personalCredential",
-        namespace = "md-poc.tlabs.org"
-)
+@XmlRootElement(name = "personalCredential")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PersonalCredentialDTO {
 
