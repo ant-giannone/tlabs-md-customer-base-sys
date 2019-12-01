@@ -5,13 +5,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.tlabs.md.ptl.ws.dto.NewUserRegistrationRequest;
-import org.tlabs.md.ptl.ws.dto.NewUserRegistrationResponse;
+import org.tlabs.md.ptl.ws.dto.ActivationAccountRequest;
+import org.tlabs.md.ptl.ws.dto.ActivationAccountResponse;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerBaseWsImplTest {
@@ -34,13 +34,12 @@ public class CustomerBaseWsImplTest {
     }
 
     @Test
-    public void newUserRegistration() {
+    public void activationAccount() {
 
-        NewUserRegistrationRequest newUserRegistrationRequest = mock(NewUserRegistrationRequest.class);
+        ActivationAccountRequest activationAccountRequest = mock(ActivationAccountRequest.class);
+        ActivationAccountResponse activationAccountResponse = customerBaseWs.activationAccount(activationAccountRequest);
 
-        NewUserRegistrationResponse newUserRegistrationResponse =
-                customerBaseWs.newUserRegistration(newUserRegistrationRequest);
-
-        assertNotNull(newUserRegistrationResponse);
+        assertNotNull(activationAccountResponse);
+        assertEquals("NUR-S01", activationAccountResponse.getOperationCode());
     }
 }

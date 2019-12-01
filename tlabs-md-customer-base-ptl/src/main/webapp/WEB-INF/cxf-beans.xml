@@ -14,11 +14,47 @@
     <import resource="classpath*:ptl-context.xml"/>
 
 
+    <bean id="customUserTokenPasswordCallback"
+          class="org.tlabs.md.ptl.ws.security.CustomUserTokenPasswordCallback"/>
+
+    <bean id="customerBaseRegistrationWebService"
+          class="org.tlabs.md.ptl.ws.service.CustomerBaseRegistrationWsImpl" />
+
     <bean id="customerBaseManagerWebService"
           class="org.tlabs.md.ptl.ws.service.CustomerBaseWsImpl" />
 
+
+    <jaxws:endpoint id="customerBaseRegistrationWsEndPoint"
+                    implementor="#customerBaseRegistrationWebService"
+                    address="/customerBaseRegistrationAddress">
+
+        <jaxws:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="true"/>
+            </bean>
+        </jaxws:features>
+    </jaxws:endpoint>
+
     <jaxws:endpoint id="customerBaseWsEndPoint"
                     implementor="#customerBaseManagerWebService"
-                    address="/CustomerBaseManagerWs" >
+                    address="/customerBaseGeneralAddress">
+
+        <jaxws:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="true"/>
+            </bean>
+        </jaxws:features>
+
+        <jaxws:inInterceptors>
+            <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+                <constructor-arg>
+                    <map>
+                        <entry key="action" value="UsernameToken" /> <!-- UsernameToken Timestamp -->
+                        <entry key="passwordType" value="PasswordText" /> <!-- PasswordDigest -->
+                        <entry key="passwordCallbackRef" value-ref="customUserTokenPasswordCallback" />
+                    </map>
+                </constructor-arg>
+            </bean>
+        </jaxws:inInterceptors>
     </jaxws:endpoint>
 </beans>

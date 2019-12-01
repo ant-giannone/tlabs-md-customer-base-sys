@@ -3,27 +3,25 @@ package org.tlabs.md.ptl.ws.service;
 import org.apache.cxf.annotations.SchemaValidation;
 import org.tlabs.md.ptl.ws.dto.ActivationAccountRequest;
 import org.tlabs.md.ptl.ws.dto.ActivationAccountResponse;
-import org.tlabs.md.ptl.ws.dto.NewUserRegistrationRequest;
-import org.tlabs.md.ptl.ws.dto.NewUserRegistrationResponse;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import javax.xml.ws.RequestWrapper;
+import javax.xml.ws.ResponseWrapper;
 
-@WebService
 @SchemaValidation(type = SchemaValidation.SchemaValidationType.BOTH)
 @SOAPBinding(style = SOAPBinding.Style.RPC)
+@WebService(name="CustomerBaseGeneralN")
 public interface CustomerBaseWs {
 
-    @WebMethod(operationName="newUserRegistration")
-    @WebResult
-    public NewUserRegistrationResponse newUserRegistration(
-            @WebParam NewUserRegistrationRequest userRegistrationRequest);
-
     @WebMethod(operationName="accountActivation")
-    @WebResult
+    @WebResult(name = "activationAccountResponse")
+    @RequestWrapper(className="org.tlabs.md.ptl.ws.dto.ActivationAccountRequest")
+    @ResponseWrapper(className="org.tlabs.md.ptl.ws.dto.ActivationAccountResponse")
     public ActivationAccountResponse activationAccount(
-            @WebParam ActivationAccountRequest activationAccountRequest);
+            @WebParam(name="activationAccountRequest",
+                    mode= WebParam.Mode.IN) ActivationAccountRequest activationAccountRequest);
 }
