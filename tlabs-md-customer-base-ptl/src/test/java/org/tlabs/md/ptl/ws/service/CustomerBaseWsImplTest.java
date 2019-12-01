@@ -16,14 +16,10 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerBaseWsImplTest {
 
-    private ConfigurableApplicationContext applicationContext;
-
     private CustomerBaseWs customerBaseWs;
 
     @Before
     public void setUp() throws Exception {
-
-        applicationContext = mock(ClassPathXmlApplicationContext.class);
 
         customerBaseWs = spy(CustomerBaseWsImpl.class);
     }
@@ -31,19 +27,14 @@ public class CustomerBaseWsImplTest {
     @After
     public void tearDown() throws Exception {
 
-        if(applicationContext==null)
+        if(customerBaseWs==null)
             return;
 
-        applicationContext.close();
-        applicationContext = null;
+        customerBaseWs = null;
     }
 
     @Test
     public void newUserRegistration() {
-
-        when(applicationContext.getBean("customerBaseWs")).thenReturn(customerBaseWs);
-
-        assertNotNull(customerBaseWs);
 
         NewUserRegistrationRequest newUserRegistrationRequest = mock(NewUserRegistrationRequest.class);
 

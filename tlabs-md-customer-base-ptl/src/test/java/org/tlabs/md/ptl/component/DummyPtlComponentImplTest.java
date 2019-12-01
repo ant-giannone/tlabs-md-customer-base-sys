@@ -30,7 +30,7 @@ public class DummyPtlComponentImplTest {
 
         applicationContext = mock(ClassPathXmlApplicationContext.class);
 
-        dummyDalComponent = mock(DummyDalComponentImpl.class);
+        dummyDalComponent = spy(new DummyDalComponentImpl());
         dummyBslComponent = spy(new DummyBslComponentImpl(dummyDalComponent));
         dummyPtlComponent = spy(new DummyPtlComponentImpl(dummyBslComponent));
     }
@@ -60,5 +60,17 @@ public class DummyPtlComponentImplTest {
         when(applicationContext.getBean("dummyPtlComponent")).thenReturn(dummyPtlComponent);
         assertNotNull(dummyPtlComponent);
         assertNotNull(dummyPtlComponent.getDummyBslComponent());
+        assertEquals("I'm business layer", dummyPtlComponent.getDummyBslComponent().getLayerName());
+    }
+
+    @Test
+    public void getDummyDalComponent() {
+
+        when(applicationContext.getBean("dummyPtlComponent")).thenReturn(dummyPtlComponent);
+        assertNotNull(dummyPtlComponent);
+        assertNotNull(dummyPtlComponent.getDummyBslComponent());
+        assertNotNull(dummyPtlComponent.getDummyBslComponent().getDummyDalComponent());
+        assertEquals("I'm data access layer",
+                dummyPtlComponent.getDummyBslComponent().getDummyDalComponent().getLayerName());
     }
 }
