@@ -3,6 +3,8 @@ package org.tlabs.md.ptl.ws.service;
 import org.apache.cxf.annotations.SchemaValidation;
 import org.tlabs.md.ptl.ws.dto.ActivationAccountRequest;
 import org.tlabs.md.ptl.ws.dto.ActivationAccountResponse;
+import org.tlabs.md.ptl.ws.dto.IdentificationProcedureRequest;
+import org.tlabs.md.ptl.ws.dto.IdentificationProcedureResponse;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -24,4 +26,12 @@ public interface CustomerBaseWs {
     public ActivationAccountResponse activationAccount(
             @WebParam(name="activationAccountRequest",
                     mode= WebParam.Mode.IN) ActivationAccountRequest activationAccountRequest);
+
+    @WebMethod(operationName="identificationProcedure")
+    @WebResult(name = "identificationProcedureResponse")
+    @RequestWrapper(className="org.tlabs.md.ptl.ws.dto.IdentificationProcedureRequest")
+    @ResponseWrapper(className="org.tlabs.md.ptl.ws.dto.IdentificationProcedureResponse")
+    public IdentificationProcedureResponse identificationProcedure(
+            @WebParam(name="identificationProcedureRequest",
+                    mode= WebParam.Mode.IN) IdentificationProcedureRequest identificationProcedureRequest);
 }

@@ -2,6 +2,8 @@ package org.tlabs.md.ptl.ws.service;
 
 import org.tlabs.md.ptl.ws.dto.ActivationAccountRequest;
 import org.tlabs.md.ptl.ws.dto.ActivationAccountResponse;
+import org.tlabs.md.ptl.ws.dto.IdentificationProcedureRequest;
+import org.tlabs.md.ptl.ws.dto.IdentificationProcedureResponse;
 
 import javax.jws.WebService;
 
@@ -23,11 +25,30 @@ public class CustomerBaseWsImpl implements CustomerBaseWs {
          *  - business-logic for activation flow
          * */
 
-        ActivationAccountResponse activationAccountResponse = new ActivationAccountResponse();
+        ActivationAccountResponse response = new ActivationAccountResponse();
 
-        activationAccountResponse.setOperationCode("NUR-S01");
-        activationAccountResponse.setMessageInfo("Account activation successfully accomplished");
+        response.setOperationCode("NUR-S01");
+        response.setMessageInfo("Account activation successfully accomplished");
 
-        return activationAccountResponse;
+        return response;
+    }
+
+    @Override
+    public IdentificationProcedureResponse identificationProcedure(
+            IdentificationProcedureRequest identificationProcedureRequest) {
+
+        /**
+         * TODO:
+         *  - validation by custom-component(at this time only schema validation)
+         *  - business-logic for identification flow
+         * */
+
+        IdentificationProcedureResponse response = new IdentificationProcedureResponse();
+
+        response.setMessageInfo("Your identification procedure request started");
+        response.setRequestStatus("PENDING");
+        response.setResultCode("IPR-S01");
+
+        return response;
     }
 }
