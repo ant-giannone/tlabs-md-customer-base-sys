@@ -50,8 +50,6 @@ If you what view code for a specific articles, you only need to checkout on a sp
 
 #### Second step
 
-#### Third Step
-
 Open your console and position yourself in the project folder **tlabs-md-customer-base-sys/docker**  
 
 Here, you have the **docker** folder with docker compose and the necessary files for tomcat configuration.  
@@ -85,7 +83,7 @@ http://localhost:8888/
 Click on Manager App and insert Username/Password required: **tomcat-g/tomcat**
 
 
-### Fourth Step
+#### Third Step
 
 Open your console and position yourself in the project folder **tlabs-md-customer-base-sys**  
 
@@ -98,7 +96,7 @@ mvn clean package
 Now you have the package **tlabs-md-cbs.war** placed in the path **tlabs-md-customer-base-sys/tlabs-md-customer-base-ptl/target**
 
 
-### Fifth Step
+### Fourth Step
 
 Open In your browser the tomcat dashboard e manually deploy the package. If it's all ok, you can see a new app on tomcat application list: **/tlabs-md-cbs**  
 
