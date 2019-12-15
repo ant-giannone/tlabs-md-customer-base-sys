@@ -54,4 +54,15 @@
                     address="/HelloWorld">
     </jaxws:endpoint>
 
+    <jaxws:endpoint id="customerBaseRegistrationWsEndPoint"
+                    implementor="org.tlabs.md.ws.service.CustomerBaseRegistrationWsImpl"
+                    address="/customerBaseRegistrationAddress">
+
+    </jaxws:endpoint>
+
+    <jaxws:endpoint id="customerBaseWsEndPoint"
+                    implementor="org.tlabs.md.ws.service.CustomerBaseWsImpl"
+                    address="/customerBaseGeneralAddress">
+
+    </jaxws:endpoint>
 </blueprint>

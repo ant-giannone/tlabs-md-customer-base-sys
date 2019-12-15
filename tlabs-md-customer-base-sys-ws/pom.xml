@@ -20,10 +20,10 @@
     <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.compiler.plugin>2.3.1</version.compiler.plugin>
-    <maven.compiler.target>1.7</maven.compiler.target>
-    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
     <version.maven-surefire-plugin>2.19.1</version.maven-surefire-plugin>
-    <version.maven-bundle-plugin>2.3.7</version.maven-bundle-plugin>
+    <version.maven-bundle-plugin>3.0.0</version.maven-bundle-plugin>
     <cxf-version>3.1.5.redhat-630187</cxf-version>
     <skipTests>true</skipTests>
 
@@ -81,7 +81,6 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -119,7 +118,9 @@
               org.apache.cxf.helpers,
               org.osgi.service.blueprint,
               io.fabric8.cxf.endpoint,
-              org.apache.cxf.transport.http</Import-Package>
+              org.apache.cxf.transport.http,
+              org.slf4j
+            </Import-Package>
             <Import-Service>org.apache.aries.blueprint.NamespaceHandler;
                 osgi.service.blueprint.namespace=http://cxf.apache.org/transports/http/configuration</Import-Service>
             <Export-Package>org.tlabs.md</Export-Package>
