@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://cxf.apache.org/jaxws
+       http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <bean id="customerBaseRegistrationWebService"
+          class="org.tlabs.md.ws.service.CustomerBaseRegistrationWsImpl" />
+
+    <bean id="customerBaseManagerWebService"
+          class="org.tlabs.md.ws.service.CustomerBaseWsImpl" >
+        <constructor-arg ref="dummyWsComponent"/>
+    </bean>
+
+    <bean id="dummyWsComponent" class="org.tlabs.md.ws.component.DummyComponentImpl"/>
+
+    <jaxws:endpoint id="customerBaseRegistrationWsEndPoint"
+                    implementor="#customerBaseRegistrationWebService"
+                    address="/customerBaseRegistrationAddress">
+
+    </jaxws:endpoint>
+
+    <jaxws:endpoint id="customerBaseWsEndPoint"
+                    implementor="#customerBaseManagerWebService"
+                    address="/customerBaseGeneralAddress">
+
+    </jaxws:endpoint>
+</beans>

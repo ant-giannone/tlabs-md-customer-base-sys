@@ -25,6 +25,7 @@
     <version.maven-surefire-plugin>2.19.1</version.maven-surefire-plugin>
     <version.maven-bundle-plugin>3.0.0</version.maven-bundle-plugin>
     <cxf-version>3.1.5.redhat-630187</cxf-version>
+    <org.springframework.version>5.2.1.RELEASE</org.springframework.version>
     <skipTests>true</skipTests>
 
     <!-- the version of the BOM, defining all the dependency versions -->
@@ -46,10 +47,23 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${org.springframework.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
     <dependencies>
+
+      <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+      </dependency>
     <!--
         For coding the example, we don't actually depend on any CXF classes - we only use the JAX-WS
         standard annotations
@@ -124,6 +138,9 @@
             <Import-Service>org.apache.aries.blueprint.NamespaceHandler;
                 osgi.service.blueprint.namespace=http://cxf.apache.org/transports/http/configuration</Import-Service>
             <Export-Package>org.tlabs.md</Export-Package>
+            <Embed-Dependency>
+              org.springframework.*;scope=compile
+            </Embed-Dependency>
           </instructions>
         </configuration>
       </plugin>
@@ -139,7 +156,7 @@
               <goal>java2ws</goal>
             </goals>
             <configuration>
-              <className>org.tlabs.md.HelloWorld</className>
+              <className>org.tlabs.md.ws.service.CustomerBaseRegistrationWsImpl</className>
               <genWsdl>true</genWsdl>
               <attachWsdl>false</attachWsdl>
               <verbose>true</verbose>
