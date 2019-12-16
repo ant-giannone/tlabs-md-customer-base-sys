@@ -27,6 +27,7 @@
     <cxf-version>3.1.5.redhat-630187</cxf-version>
     <org.springframework.version>5.2.1.RELEASE</org.springframework.version>
     <skipTests>true</skipTests>
+      <camel.version>2.18.1</camel.version>
 
     <!-- the version of the BOM, defining all the dependency versions -->
     <fabric8.bom.version>1.2.0.redhat-630187</fabric8.bom.version>
@@ -48,6 +49,14 @@
         <scope>import</scope>
       </dependency>
 
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-parent</artifactId>
+        <version>${camel.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
       <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
       <dependency>
         <groupId>org.springframework</groupId>
@@ -58,7 +67,15 @@
   </dependencyManagement>
 
     <dependencies>
-
+      <!-- camel -->
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-core</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-spring</artifactId>
+      </dependency>
       <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
       <dependency>
         <groupId>org.springframework</groupId>
