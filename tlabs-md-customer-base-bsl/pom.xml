@@ -19,6 +19,13 @@
   <url>https://github.com/ant-giannone/tlabs-md-customer-base-sys</url>
 
   <dependencies>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.tlabs.md</groupId>
       <artifactId>tlabs-md-customer-base-dal</artifactId>

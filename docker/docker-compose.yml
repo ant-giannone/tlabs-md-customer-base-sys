@@ -1,16 +1,32 @@
 version: '3'
 services:
-  tlabs-md-cbs:
-    container_name: tlabs-md-cbs
+  tlabs-md-cbs-tomcat:
+    container_name: tlabs-md-cbs-tomcat
     image: tomcat:jdk8-openjdk
     userns_mode: "host"
+    networks:
+      - tlabs-md-platform-network
     ports:
       - "8888:8080"
     volumes:
       - ./tlabs-md-platform/cbs/tomcat/conf:/usr/local/tomcat/conf/:rw
       - ./tlabs-md-platform/cbs/tomcat/webapps/manager/META-INF/:/usr/local/tomcat/webapps/manager/META-INF/:rw
 
+  tlabs-md-cbs-postgresql:
+    container_name: tlabs-md-cbs-postgresql
+    image: postgres:9.6
+    userns_mode: "host"
+    environment:
+      POSTGRES_USER: tlabs
+      POSTGRES_PASSWORD: tlabs
+      POSTGRES_DB: mdcbsstorage
+    networks:
+      - tlabs-md-platform-network
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./tlabs-md-platform/cbs/pg-data:/var/lib/postgresql/data/:rw
+
 networks:
-  default:
-    external:
-      name: tlabs-md-platform-network
+  tlabs-md-platform-network:
+    external: true
