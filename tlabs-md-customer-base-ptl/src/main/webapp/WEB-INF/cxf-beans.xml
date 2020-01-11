@@ -18,7 +18,9 @@
           class="org.tlabs.md.ptl.ws.security.CustomUserTokenPasswordCallback"/>
 
     <bean id="customerBaseRegistrationWebService"
-          class="org.tlabs.md.ptl.ws.service.CustomerBaseRegistrationWsImpl" />
+          class="org.tlabs.md.ptl.ws.service.CustomerBaseRegistrationWsImpl">
+        <constructor-arg ref="customerBaseFacadeComponent"/>
+    </bean>
 
     <bean id="customerBaseManagerWebService"
           class="org.tlabs.md.ptl.ws.service.CustomerBaseWsImpl" />

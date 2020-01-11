@@ -6,7 +6,7 @@
 
     <import resource="spring-context.xml" />
     <import resource="spring-mvc.xml" />
-    <import resource="classpath*:/spring-context-dal.xml" />
+    <import resource="classpath*:/spring-dal-config.xml" />
 
     <import resource="classpath*:/ptl-context.xml" />
 
