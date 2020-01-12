@@ -1,22 +1,19 @@
 package org.tlabs.md.dal.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
-@Table(name = "profiles")
-public class ProfileEntity {
+@Table(name = "dummy")
+public class DummyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
-
-
-    @Column(name = "surname", nullable = false)
-    private String surname;
-
 
     public Long getId() {
         return id;
@@ -32,13 +29,5 @@ public class ProfileEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 }

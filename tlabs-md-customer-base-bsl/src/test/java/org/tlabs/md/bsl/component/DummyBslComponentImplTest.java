@@ -9,6 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tlabs.md.dal.component.DummyDalComponent;
 import org.tlabs.md.dal.component.DummyDalComponentImpl;
+import org.tlabs.md.dal.dao.DummyDAO;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,14 +21,16 @@ public class DummyBslComponentImplTest {
     private ConfigurableApplicationContext applicationContext;
     private DummyBslComponent dummyBslComponent;
     private DummyDalComponent dummyDalComponent;
+    private DummyDAO dummyDAO;
 
     @Before
     public void setUp() throws Exception {
 
         applicationContext = mock(ClassPathXmlApplicationContext.class);
 
+        dummyDAO = mock(DummyDAO.class);
         dummyDalComponent = mock(DummyDalComponentImpl.class);
-        dummyBslComponent = spy(new DummyBslComponentImpl(dummyDalComponent));
+        dummyBslComponent = spy(new DummyBslComponentImpl(dummyDalComponent, dummyDAO));
     }
 
     @After

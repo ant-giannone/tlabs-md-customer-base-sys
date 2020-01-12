@@ -4,6 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="dummyDalComponent" class="org.tlabs.md.dal.component.DummyDalComponentImpl" />
+    <import resource="classpath*:/spring-dal-context.xml" />
 
+    <bean id="dummyBslComponent" class="org.tlabs.md.bsl.component.DummyBslComponentImpl">
+        <constructor-arg ref="dummyDalComponent"/>
+        <constructor-arg ref="dummyDAO"/>
+    </bean>
 </beans>

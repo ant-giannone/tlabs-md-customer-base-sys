@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="classpath*:/bsl-context.xml" />
+    <import resource="classpath*:/spring-bsl-context.xml" />
 
     <bean id="dummyPtlComponent" class="org.tlabs.md.ptl.component.DummyPtlComponentImpl">
 

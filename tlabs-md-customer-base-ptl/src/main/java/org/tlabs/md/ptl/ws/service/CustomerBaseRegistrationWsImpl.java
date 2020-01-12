@@ -1,12 +1,11 @@
 package org.tlabs.md.ptl.ws.service;
 
+import org.tlabs.md.ptl.component.DummyPtlComponent;
 import org.tlabs.md.ptl.ws.UserRegistrationException;
 import org.tlabs.md.ptl.ws.dto.FaultRegistrationInfo;
 import org.tlabs.md.ptl.ws.dto.NewUserRegistrationRequest;
 import org.tlabs.md.ptl.ws.dto.NewUserRegistrationResponse;
 
-import javax.jws.WebParam;
-import javax.jws.WebResult;
 import javax.jws.WebService;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,7 +17,13 @@ import java.util.UUID;
         portName = "CustomerBaseRegistrationPN")
 public class CustomerBaseRegistrationWsImpl implements CustomerBaseRegistrationWs {
 
+    private DummyPtlComponent dummyPtlComponent;
+
     public CustomerBaseRegistrationWsImpl() {
+    }
+
+    public CustomerBaseRegistrationWsImpl(DummyPtlComponent dummyPtlComponent) {
+        this.dummyPtlComponent = dummyPtlComponent;
     }
 
     @Override
@@ -41,6 +46,8 @@ public class CustomerBaseRegistrationWsImpl implements CustomerBaseRegistrationW
             newUserRegistrationResponse.setActivationLink(
                     new URL("http://localhost:8888/tlabs-md-cbs/CustomerBaseManagerWs") //It's not a good strategy
             );
+
+            dummyPtlComponent.newUserRegistration(userRegistrationRequest);
 
             return newUserRegistrationResponse;
         } catch (MalformedURLException e) {

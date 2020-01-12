@@ -11,6 +11,7 @@ import org.tlabs.md.bsl.component.DummyBslComponent;
 import org.tlabs.md.bsl.component.DummyBslComponentImpl;
 import org.tlabs.md.dal.component.DummyDalComponent;
 import org.tlabs.md.dal.component.DummyDalComponentImpl;
+import org.tlabs.md.dal.dao.DummyDAO;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -24,14 +25,16 @@ public class DummyPtlComponentImplTest {
     private DummyBslComponent dummyBslComponent;
     private DummyDalComponent dummyDalComponent;
     private DummyPtlComponent dummyPtlComponent;
+    private DummyDAO dummyDAO;
 
     @Before
     public void setUp() throws Exception {
 
         applicationContext = mock(ClassPathXmlApplicationContext.class);
 
+        dummyDAO = mock(DummyDAO.class);
         dummyDalComponent = spy(new DummyDalComponentImpl());
-        dummyBslComponent = spy(new DummyBslComponentImpl(dummyDalComponent));
+        dummyBslComponent = spy(new DummyBslComponentImpl(dummyDalComponent, dummyDAO));
         dummyPtlComponent = spy(new DummyPtlComponentImpl(dummyBslComponent));
     }
 
