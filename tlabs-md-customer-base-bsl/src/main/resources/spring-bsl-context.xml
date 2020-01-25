@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath*:/spring-dal-context.xml" />
+
+    <bean id="activationCodeHelper" class="org.tlabs.md.bsl.utils.ActivationCodeHelper">
+        <constructor-arg type="java.util.UUID" value="${cbs.configuration.uuid}" />
+    </bean>
+
+    <bean id="customerBaseService" class="org.tlabs.md.bsl.component.CustomerBaseServiceImpl">
+        <constructor-arg ref="activationCodeHelper"/>
+        <constructor-arg ref="profileDAO"/>
+        <constructor-arg ref="accountDAO"/>
+        <constructor-arg ref="contactDAO"/>
+    </bean>
+</beans>

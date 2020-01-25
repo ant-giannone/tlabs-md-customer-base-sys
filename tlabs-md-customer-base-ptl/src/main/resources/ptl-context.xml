@@ -4,10 +4,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="classpath*:/bsl-context.xml" />
+    <import resource="classpath*:/spring-bsl-context.xml" />
 
-    <bean id="dummyPtlComponent" class="org.tlabs.md.ptl.component.DummyPtlComponentImpl">
+    <bean id="contactEntityStrategyConverter" class="org.tlabs.md.ptl.converter.ContactEntityStrategyConverter"/>
+    <bean id="credentialEntityStrategyConverter" class="org.tlabs.md.ptl.converter.CredentialEntityStrategyConverter"/>
+    <bean id="profileEntityStrategyConverter" class="org.tlabs.md.ptl.converter.ProfileEntityStrategyConverter"/>
 
-        <constructor-arg ref="dummyBslComponent"/>
+    <bean id="customerBaseFacadeComponent" class="org.tlabs.md.ptl.component.CustomerBaseFacadeComponentImpl">
+
+        <constructor-arg ref="contactEntityStrategyConverter"/>
+        <constructor-arg ref="credentialEntityStrategyConverter"/>
+        <constructor-arg ref="profileEntityStrategyConverter"/>
+
+        <constructor-arg ref="customerBaseService"/>
     </bean>
 </beans>

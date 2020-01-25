@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="spring-dal-config.xml"/>
+
+    <bean id="simpleAbstractGenericDAO" class="org.tlabs.md.dal.dao.SimpleAbstractGenericDAO" abstract="true">
+        <property name="entityManager">
+            <bean class = "org.springframework.orm.jpa.support.SharedEntityManagerBean">
+                <property name = "entityManagerFactory" ref="entityManagerFactoryBean"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="profileDAO" class="org.tlabs.md.dal.dao.ProfileDAOImpl" parent="simpleAbstractGenericDAO" />
+    <bean id="accountDAO" class="org.tlabs.md.dal.dao.AccountDAOImpl" parent="simpleAbstractGenericDAO" />
+    <bean id="contactDAO" class="org.tlabs.md.dal.dao.ContactDAOImpl" parent="simpleAbstractGenericDAO" />
+</beans>
