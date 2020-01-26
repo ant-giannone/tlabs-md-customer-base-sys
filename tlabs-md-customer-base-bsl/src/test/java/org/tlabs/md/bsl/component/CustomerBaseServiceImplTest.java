@@ -35,7 +35,8 @@ public class CustomerBaseServiceImplTest {
         accountDAO = mock(AccountDAOImpl.class);
         contactDAO = mock(ContactDAOImpl.class);
 
-        customerBaseService = spy(new CustomerBaseServiceImpl(activationCodeHelper, profileDAO, accountDAO, contactDAO));
+        customerBaseService = spy(new CustomerBaseServiceImpl(1L, activationCodeHelper,
+                profileDAO, accountDAO, contactDAO));
     }
 
     @After
