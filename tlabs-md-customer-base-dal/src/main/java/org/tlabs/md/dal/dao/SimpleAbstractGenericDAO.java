@@ -21,6 +21,10 @@ public abstract class SimpleAbstractGenericDAO<T> implements SimpleGenericDAO<T>
         this.entityManager = entityManager;
     }
 
+    protected EntityManager getEntityManager() {
+        return entityManager;
+    }
+
     @Override
     public Optional<T> findOne(final Object id) {
 

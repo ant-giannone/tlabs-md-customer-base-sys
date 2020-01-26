@@ -3,6 +3,7 @@ package org.tlabs.md.bsl.component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
+import org.tlabs.md.bsl.exception.ActivationCodeBslException;
 import org.tlabs.md.bsl.exception.UserRegistrationBslException;
 import org.tlabs.md.bsl.utils.ActivationCodeHelper;
 import org.tlabs.md.bsl.utils.MD5Helper;
@@ -78,5 +79,50 @@ public class CustomerBaseServiceImpl implements CustomerBaseService {
         profileDAO.update(profileEntity);
 
         return accountEntity.getActivationCode();
+    }
+
+    @Override
+    public void verifyActivationCode(UUID accountActivationCode) throws ActivationCodeBslException {
+
+        logger.info("START | Verify Activation-Code");
+
+        AccountEntity accountEntity = accountDAO.findByActivationCode(accountActivationCode);
+        ProfileEntity profile = accountEntity.getProfile();
+
+        try {
+
+            boolean verifyActivationCode =
+                    activationCodeHelper.verifyActivationCode(accountActivationCode, profile, accountEntity);
+
+            if(!verifyActivationCode) {
+
+                logger.error("END | An Error occurred for Activation-Code verification: code is not correct");
+
+                throw new ActivationCodeBslException(
+                        "An Error occurred for Activation-Code verification: code is not correct");
+            }
+
+            /**
+             * DISABLED ACCOUNT is considered a banned account.
+             * If statement is true we have a malicious use of activate-code
+             * */
+            if(accountEntity.getStatus().compareTo(AccountStatus.DISABLED)==0) {
+
+                throw new ActivationCodeBslException(
+                        "An Error occurred for Activation-Code verification: incorrect use of the activation-code for disabled account");
+            }
+
+            if(accountEntity.getStatus().compareTo(AccountStatus.UNACTIVATED)==0) {
+
+                accountEntity.setStatus(AccountStatus.ENABLED);
+                accountDAO.update(accountEntity);
+            }
+        } catch (UnsupportedEncodingException e) {
+
+            logger.error("END | An Error occurred for Activation-Code verification: {}", e.getMessage());
+            throw new ActivationCodeBslException(e);
+        }
+
+        logger.info("END | Verify Activation-Code successfully ended");
     }
 }

@@ -24,4 +24,19 @@ public class ActivationCodeHelper {
 
         return UUID.nameUUIDFromBytes(bytes);
     }
+
+    public boolean verifyActivationCode(
+            UUID activationCode, ProfileEntity profileEntity, AccountEntity accountEntity)
+            throws UnsupportedEncodingException {
+
+        UUID generatedActivationCode = generateActivationCode(profileEntity, accountEntity);
+
+        /**
+         * The control over the activation code is quite weak.
+         * But at the moment the focus is not on the types of authentication that we could have implemented.
+         *
+         * The type of UUID that we use allows us to spend a few words on the use of UUID v3
+         * */
+        return generatedActivationCode.toString().equals(activationCode.toString());
+    }
 }

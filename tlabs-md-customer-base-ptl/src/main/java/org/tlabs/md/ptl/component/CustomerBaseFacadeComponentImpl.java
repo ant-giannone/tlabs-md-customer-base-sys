@@ -3,15 +3,13 @@ package org.tlabs.md.ptl.component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tlabs.md.bsl.component.CustomerBaseService;
+import org.tlabs.md.bsl.exception.ActivationCodeBslException;
 import org.tlabs.md.bsl.exception.UserRegistrationBslException;
 import org.tlabs.md.dal.entity.AccountEntity;
 import org.tlabs.md.dal.entity.ContactEntity;
 import org.tlabs.md.dal.entity.ProfileEntity;
 import org.tlabs.md.ptl.converter.SimpleStrategyConverter;
-import org.tlabs.md.ptl.ws.dto.NewUserRegistrationRequest;
-import org.tlabs.md.ptl.ws.dto.PersonalContactDTO;
-import org.tlabs.md.ptl.ws.dto.PersonalCredentialDTO;
-import org.tlabs.md.ptl.ws.dto.PersonalDataDTO;
+import org.tlabs.md.ptl.ws.dto.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,5 +56,13 @@ public class CustomerBaseFacadeComponentImpl implements CustomerBaseFacadeCompon
         credentialEntityStrategyConverter.execute(personalCredential, accountEntity);
 
         return customerBaseService.registerNewUser(profileEntity, accountEntity, contacts);
+    }
+
+    @Override
+    public void accountActivationCodeVerification(
+            ActivationAccountRequest activationAccountRequest) throws ActivationCodeBslException {
+
+        String activationCode = activationAccountRequest.getActivationCode();
+        customerBaseService.verifyActivationCode(UUID.fromString(activationCode));
     }
 }

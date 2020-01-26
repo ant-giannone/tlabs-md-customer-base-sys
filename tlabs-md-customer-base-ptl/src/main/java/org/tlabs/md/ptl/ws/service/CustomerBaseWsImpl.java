@@ -1,9 +1,9 @@
 package org.tlabs.md.ptl.ws.service;
 
-import org.tlabs.md.ptl.ws.dto.ActivationAccountRequest;
-import org.tlabs.md.ptl.ws.dto.ActivationAccountResponse;
-import org.tlabs.md.ptl.ws.dto.IdentificationProcedureRequest;
-import org.tlabs.md.ptl.ws.dto.IdentificationProcedureResponse;
+import org.tlabs.md.bsl.exception.ActivationCodeBslException;
+import org.tlabs.md.ptl.component.CustomerBaseFacadeComponent;
+import org.tlabs.md.ptl.ws.UserRegistrationException;
+import org.tlabs.md.ptl.ws.dto.*;
 
 import javax.jws.WebService;
 
@@ -13,24 +13,39 @@ import javax.jws.WebService;
         portName = "CustomerBaseGeneralPN")
 public class CustomerBaseWsImpl implements CustomerBaseWs {
 
-    public CustomerBaseWsImpl() {
+    private CustomerBaseFacadeComponent customerBaseFacadeComponent;
+
+
+    public CustomerBaseWsImpl(CustomerBaseFacadeComponent customerBaseFacadeComponent) {
+        this.customerBaseFacadeComponent = customerBaseFacadeComponent;
     }
 
     @Override
     public ActivationAccountResponse activationAccount(ActivationAccountRequest activationAccountRequest) {
 
-        /**
-         * TODO:
-         *  - validation by custom-component(at this time only schema validation)
-         *  - business-logic for activation flow
-         * */
 
-        ActivationAccountResponse response = new ActivationAccountResponse();
+        try {
 
-        response.setOperationCode("NUR-S01");
-        response.setMessageInfo("Account activation successfully accomplished");
+            customerBaseFacadeComponent.accountActivationCodeVerification(activationAccountRequest);
 
-        return response;
+            ActivationAccountResponse response = new ActivationAccountResponse();
+            response.setOperationCode("NUR-S01");
+            response.setMessageInfo("Account activation successfully accomplished");
+
+            return response;
+        } catch (ActivationCodeBslException e) {
+
+            /**
+             * For simplicity of use at the moment we do not consider expire scenarios of the activation code.
+             * We assume that the generated code is always valid and that the account status must be UNACTIVATED
+             * */
+            FaultRegistrationInfo faultRegistrationInfo = new FaultRegistrationInfo();
+            faultRegistrationInfo.setCode("NUR-EN01");
+            faultRegistrationInfo.setMessage(
+                    "Unable to activate account: the activation-code is not valid or is not usable for this account");
+
+            throw new UserRegistrationException(faultRegistrationInfo);
+        }
     }
 
     @Override
