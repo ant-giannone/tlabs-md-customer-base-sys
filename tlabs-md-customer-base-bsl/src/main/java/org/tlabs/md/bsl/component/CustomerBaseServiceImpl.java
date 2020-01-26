@@ -7,16 +7,18 @@ import org.tlabs.md.bsl.exception.ActivationCodeBslException;
 import org.tlabs.md.bsl.exception.UserRegistrationBslException;
 import org.tlabs.md.bsl.utils.ActivationCodeHelper;
 import org.tlabs.md.bsl.utils.MD5Helper;
-import org.tlabs.md.dal.dao.*;
+import org.tlabs.md.dal.dao.AccountDAO;
+import org.tlabs.md.dal.dao.ContactDAO;
+import org.tlabs.md.dal.dao.ProfileDAO;
 import org.tlabs.md.dal.entity.AccountEntity;
 import org.tlabs.md.dal.entity.AccountStatus;
 import org.tlabs.md.dal.entity.ContactEntity;
 import org.tlabs.md.dal.entity.ProfileEntity;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +28,7 @@ public class CustomerBaseServiceImpl implements CustomerBaseService {
     private static final Logger logger
             = LoggerFactory.getLogger(CustomerBaseServiceImpl.class);
 
+    private Long activationCodeExpirePlus;
     private ActivationCodeHelper activationCodeHelper;
     private ProfileDAO profileDAO;
     private AccountDAO accountDAO;
@@ -33,11 +36,13 @@ public class CustomerBaseServiceImpl implements CustomerBaseService {
 
 
     public CustomerBaseServiceImpl(
+            Long activationCodeExpirePlus,
             ActivationCodeHelper activationCodeHelper,
             ProfileDAO profileDAO,
             AccountDAO accountDAO,
             ContactDAO contactDAO) {
 
+        this.activationCodeExpirePlus = activationCodeExpirePlus;
         this.activationCodeHelper = activationCodeHelper;
         this.profileDAO = profileDAO;
         this.accountDAO = accountDAO;
@@ -50,14 +55,22 @@ public class CustomerBaseServiceImpl implements CustomerBaseService {
             final AccountEntity accountEntity,
             final List<ContactEntity> contacts) throws UserRegistrationBslException {
 
+        logger.info("START | New User registration started");
+
         try {
 
             accountEntity.setPassword(
                     MD5Helper.hash(accountEntity.getPassword()));
 
             UUID activationCode = activationCodeHelper.generateActivationCode(profileEntity, accountEntity);
+
+            accountEntity.setActivationCodeExpire(
+                    LocalDateTime.now().plusSeconds(activationCodeExpirePlus)
+                            .toInstant(ZoneOffset.UTC).getEpochSecond());
             accountEntity.setActivationCode(activationCode);
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+
+            logger.error("END | New User registration | Un error occurred: {}", e.getMessage());
             throw new UserRegistrationBslException(e);
         }
 
@@ -77,8 +90,12 @@ public class CustomerBaseServiceImpl implements CustomerBaseService {
         }
 
         profileDAO.update(profileEntity);
+        UUID activationCode = accountEntity.getActivationCode();
 
-        return accountEntity.getActivationCode();
+        logger.info("END | New User registration successfully accomplished with activationCode: {}",
+                activationCode.toString());
+
+        return activationCode;
     }
 
     @Override

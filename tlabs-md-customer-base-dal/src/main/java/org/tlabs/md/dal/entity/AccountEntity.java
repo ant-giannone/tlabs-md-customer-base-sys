@@ -25,6 +25,9 @@ public class AccountEntity {
     @Column(name = "activation_code", nullable = false)
     private UUID activationCode;
 
+    @Column(name = "activation_code_expire", nullable = false)
+    private Long activationCodeExpire;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
@@ -85,6 +88,14 @@ public class AccountEntity {
 
     public void setActivationCode(UUID activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public Long getActivationCodeExpire() {
+        return activationCodeExpire;
+    }
+
+    public void setActivationCodeExpire(Long activationCodeExpire) {
+        this.activationCodeExpire = activationCodeExpire;
     }
 
     public ProfileEntity getProfile() {
