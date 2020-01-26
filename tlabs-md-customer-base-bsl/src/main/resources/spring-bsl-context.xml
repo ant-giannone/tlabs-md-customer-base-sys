@@ -11,6 +11,7 @@
     </bean>
 
     <bean id="customerBaseService" class="org.tlabs.md.bsl.component.CustomerBaseServiceImpl">
+        <constructor-arg type="java.lang.Long" value="${cbs.configuration.uuid.expire.plus}" />
         <constructor-arg ref="activationCodeHelper"/>
         <constructor-arg ref="profileDAO"/>
         <constructor-arg ref="accountDAO"/>
