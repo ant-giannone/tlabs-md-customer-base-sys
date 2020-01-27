@@ -22,10 +22,10 @@ public class AccountEntity {
     @Column(name = "status", nullable = false)
     private AccountStatus status;
 
-    @Column(name = "activation_code", nullable = false)
+    @Column(name = "activation_code", nullable = true) //it's conditional data in according to AccountStatus.UNACTIVATED
     private UUID activationCode;
 
-    @Column(name = "activation_code_expire", nullable = false)
+    @Column(name = "activation_code_expire", nullable = true) //it's conditional data in according to AccountStatus.UNACTIVATED
     private Long activationCodeExpire;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

@@ -3,6 +3,7 @@ package org.tlabs.md.bsl.component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
+import org.tlabs.md.bsl.exception.ActivationCodeException;
 import org.tlabs.md.bsl.exception.UserRegistrationBslException;
 import org.tlabs.md.bsl.utils.ActivationCodeHelper;
 import org.tlabs.md.bsl.utils.MD5Helper;
@@ -56,25 +57,7 @@ public class CustomerBaseServiceImpl implements CustomerBaseService {
 
         logger.info("START | New User registration started");
 
-        try {
-
-            accountEntity.setPassword(
-                    MD5Helper.hash(accountEntity.getPassword()));
-
-            UUID activationCode = activationCodeHelper.generateActivationCode(profileEntity, accountEntity);
-
-            accountEntity.setActivationCodeExpire(
-                    LocalDateTime.now().plusSeconds(activationCodeExpirePlus)
-                            .toInstant(ZoneOffset.UTC).getEpochSecond());
-            accountEntity.setActivationCode(activationCode);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-
-            logger.error("END | New User registration | Un error occurred: {}", e.getMessage());
-            throw new UserRegistrationBslException(e);
-        }
-
         accountEntity.setStatus(AccountStatus.UNACTIVATED);
-
         profileEntity.setAccount(accountEntity);
 
         profileDAO.create(profileEntity);
@@ -89,6 +72,26 @@ public class CustomerBaseServiceImpl implements CustomerBaseService {
         }
 
         profileDAO.update(profileEntity);
+
+        try {
+
+            accountEntity.setPassword(
+                    MD5Helper.hash(accountEntity.getPassword()));
+
+            UUID activationCode = activationCodeHelper.generateActivationCode(profileEntity, accountEntity);
+
+            accountEntity.setActivationCodeExpire(
+                    LocalDateTime.now().plusSeconds(activationCodeExpirePlus)
+                            .toInstant(ZoneOffset.UTC).getEpochSecond());
+            accountEntity.setActivationCode(activationCode);
+
+            accountDAO.update(accountEntity);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException | ActivationCodeException e) {
+
+            logger.error("END | New User registration | Un error occurred: {}", e.getMessage());
+            throw new UserRegistrationBslException(e);
+        }
+
         UUID activationCode = accountEntity.getActivationCode();
 
         logger.info("END | New User registration successfully accomplished with activationCode: {}",
