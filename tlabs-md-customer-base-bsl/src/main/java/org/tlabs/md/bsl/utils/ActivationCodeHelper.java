@@ -1,5 +1,7 @@
 package org.tlabs.md.bsl.utils;
 
+import org.tlabs.md.bsl.exception.ActivationCodeException;
+import org.tlabs.md.bsl.exception.UserRegistrationBslException;
 import org.tlabs.md.dal.entity.AccountEntity;
 import org.tlabs.md.dal.entity.ProfileEntity;
 
@@ -15,9 +17,15 @@ public class ActivationCodeHelper {
     }
 
     public UUID generateActivationCode(ProfileEntity profileEntity, AccountEntity accountEntity)
-            throws UnsupportedEncodingException {
+            throws UnsupportedEncodingException, ActivationCodeException {
 
-        String content = String.format("%s-%s", accountEntity.getId(), profileEntity.getId());
+        if(profileEntity==null || profileEntity.getId()==null || profileEntity.getId()<=0 ||
+                accountEntity==null || accountEntity.getId()==null || accountEntity.getId()<=0) {
+
+            throw new ActivationCodeException("Unable to generate activation code: accountId and profileID must not be null");
+        }
+
+        String content = String.format("%sA-%sP", accountEntity.getId(), profileEntity.getId());
         String source = String.format("%s%s", uuidNameSpace.toString(), content);
 
         byte[] bytes = source.getBytes("UTF-8");
@@ -27,7 +35,7 @@ public class ActivationCodeHelper {
 
     public boolean verifyActivationCode(
             UUID activationCode, ProfileEntity profileEntity, AccountEntity accountEntity)
-            throws UnsupportedEncodingException {
+            throws UnsupportedEncodingException, ActivationCodeException {
 
         UUID generatedActivationCode = generateActivationCode(profileEntity, accountEntity);
 

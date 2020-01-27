@@ -7,4 +7,5 @@ import java.util.UUID;
 public interface AccountDAO extends SimpleGenericDAO<AccountEntity> {
 
     public AccountEntity findByActivationCode(UUID activationCode);
+    public AccountEntity findByUsername(String username);
 }

@@ -15,7 +15,9 @@
 
 
     <bean id="customUserTokenPasswordCallback"
-          class="org.tlabs.md.ptl.ws.security.CustomUserTokenPasswordCallback"/>
+          class="org.tlabs.md.ptl.ws.security.CustomUserTokenPasswordCallback">
+        <constructor-arg ref="accountDAO"/>
+    </bean>
 
     <bean id="customerBaseRegistrationWebService"
           class="org.tlabs.md.ptl.ws.service.CustomerBaseRegistrationWsImpl">
@@ -26,7 +28,6 @@
           class="org.tlabs.md.ptl.ws.service.CustomerBaseWsImpl">
         <constructor-arg ref="customerBaseFacadeComponent"/>
     </bean>
-
 
     <jaxws:endpoint id="customerBaseRegistrationWsEndPoint"
                     implementor="#customerBaseRegistrationWebService"
@@ -42,6 +43,12 @@
     <jaxws:endpoint id="customerBaseWsEndPoint"
                     implementor="#customerBaseManagerWebService"
                     address="/customerBaseGeneralAddress">
+
+        <jaxws:properties>
+            <entry key="ws-security.ut.validator">
+                <bean class="org.tlabs.md.ptl.ws.security.CustomUsernameTokenValidator"/>
+            </entry>
+        </jaxws:properties>
 
         <jaxws:features>
             <bean class="org.apache.cxf.ext.logging.LoggingFeature">

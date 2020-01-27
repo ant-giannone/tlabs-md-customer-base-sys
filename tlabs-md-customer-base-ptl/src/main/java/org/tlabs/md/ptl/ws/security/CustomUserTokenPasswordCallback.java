@@ -1,21 +1,25 @@
 package org.tlabs.md.ptl.ws.security;
 
 import org.apache.wss4j.common.ext.WSPasswordCallback;
+import org.tlabs.md.bsl.utils.MD5Helper;
+import org.tlabs.md.dal.dao.AccountDAO;
+import org.tlabs.md.dal.entity.AccountEntity;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomUserTokenPasswordCallback implements CallbackHandler {
 
-    private Map<String, String> keystore = new HashMap<String, String>();
+    private AccountDAO accountDAO;
 
-    public CustomUserTokenPasswordCallback(){
-        keystore.put("coder", "coder");
-        keystore.put("john", "doe");
+    public CustomUserTokenPasswordCallback(AccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
     }
+
     @Override
     public void handle(Callback[] callbacks) {
 
@@ -23,12 +27,8 @@ public class CustomUserTokenPasswordCallback implements CallbackHandler {
 
             WSPasswordCallback wsPasswordCallback = (WSPasswordCallback) callback;
 
-            if (keystore.containsKey(wsPasswordCallback.getIdentifier())) {
-
-                String psw = keystore.get(wsPasswordCallback.getIdentifier());
-
-                wsPasswordCallback.setPassword(psw);
-            }
+            AccountEntity byCredential = accountDAO.findByUsername(wsPasswordCallback.getIdentifier());
+            wsPasswordCallback.setPassword(byCredential.getPassword());
         });
     }
 }
